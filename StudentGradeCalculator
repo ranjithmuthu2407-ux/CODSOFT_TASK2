@@ -1,0 +1,90 @@
+import java.util.Scanner;
+
+public class StudentGradeCalculator {
+
+    // Method to calculate grade
+    public static String calculateGrade(double percentage) {
+
+        if (percentage >= 90) {
+            return "A+";
+        } else if (percentage >= 80) {
+            return "A";
+        } else if (percentage >= 70) {
+            return "B";
+        } else if (percentage >= 60) {
+            return "C";
+        } else if (percentage >= 50) {
+            return "D";
+        } else if (percentage >= 40) {
+            return "E";
+        } else {
+            return "F";
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("==========================================");
+        System.out.println("       STUDENT GRADE CALCULATOR");
+        System.out.println("==========================================");
+
+        System.out.print("Enter Student Name: ");
+        String studentName = scanner.nextLine();
+
+        System.out.print("Enter Number of Subjects: ");
+        int numberOfSubjects = scanner.nextInt();
+
+        // Validate number of subjects
+        if (numberOfSubjects <= 0) {
+            System.out.println("Invalid number of subjects!");
+            scanner.close();
+            return;
+        }
+
+        int[] marks = new int[numberOfSubjects];
+        int totalMarks = 0;
+
+        // Get marks for each subject
+        for (int i = 0; i < numberOfSubjects; i++) {
+
+            while (true) {
+                System.out.print("Enter marks for Subject " + (i + 1) + " (0-100): ");
+                int mark = scanner.nextInt();
+
+                if (mark >= 0 && mark <= 100) {
+                    marks[i] = mark;
+                    totalMarks += mark;
+                    break;
+                } else {
+                    System.out.println("Please enter marks between 0 and 100.");
+                }
+            }
+        }
+
+        // Calculate average percentage
+        double averagePercentage =
+                (double) totalMarks / numberOfSubjects;
+
+        // Calculate grade
+        String grade = calculateGrade(averagePercentage);
+
+        // Display result
+        System.out.println("\n==========================================");
+        System.out.println("              RESULT");
+        System.out.println("==========================================");
+
+        System.out.println("Student Name       : " + studentName);
+        System.out.println("Number of Subjects : " + numberOfSubjects);
+        System.out.println("Total Marks        : " + totalMarks
+                + " / " + (numberOfSubjects * 100));
+        System.out.printf("Average Percentage  : %.2f%%%n",
+                averagePercentage);
+        System.out.println("Grade              : " + grade);
+
+        System.out.println("==========================================");
+
+        scanner.close();
+    }
+}
